@@ -5,6 +5,7 @@ import './App.css'
 import Register from './component/Register'
 import View from './component/view'
 import Update from './component/Update'
+import Delete from './component/Delete'
 
 function App() {
   
@@ -14,7 +15,7 @@ function App() {
     <Register/>
     <View/>
     <Update/>
-
+    <Delete/>
    </div>
   )
 }
