@@ -1,20 +1,20 @@
-import React, { useState,useEffect } from 'react'
-import axios from 'axios'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 const View = () => {
     const [users,setUsers]=useState([]);
     useEffect(()=>{
         viewdata();
     },[])
     const viewdata = async ()=>{
-        const res=await axios.get('http://localhost:3000/users');
+        const res=await axios.get('http://localhost:9000/users');
         console.log(res);
         setUsers(res.data);
     }
 
   return (
-    <div>
+    <div style={{border:'2px solid red', padding:'20px' }}>
         <h1>Show Data</h1>
-        <table style={{border: '2px solid red',backgroundColor: 'greenyellow',width: '100%'}}>
+        <table style={{border: '2px solid red',backgroundColor: 'green',width: '100%'}}>
             <tr>
                 <th>ID</th>
                 <th>Name</th>

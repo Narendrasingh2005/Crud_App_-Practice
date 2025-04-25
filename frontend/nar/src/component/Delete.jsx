@@ -1,30 +1,22 @@
-import React from 'react'
-import axios from 'axios'
+import axios from 'axios';
+import React from 'react';
 
-const Delete = () => {
-const handleDelete = async (e) => {
-    e.preventDefault()
-    const id = e.target.id.value
-
-    try {
-    await axios.delete(`http://localhost:3000/users/${id}`)
-    alert('User deleted successfully')
-    } catch (error) {
-    console.error('Error deleting user:', error)
-    alert('Failed to delete user')
+function Delete() {
+    const adi=async(e)=>{
+        e.preventDefault
+        const id=e.target.id.value;
+        await axios.delete(`http://localhost:9000/users/${id}`)
+        alert("data delete")
     }
-}
-
-return (
-    <div>
-    <h1 style={{ color: 'red' }}>Delete User</h1>
-    <form onSubmit={handleDelete}>
-        <label>ID: </label>
-        <input type="text" name="id" required />
-        <button type="submit">Delete</button>
-    </form>
+  return (
+    <div style={{border:'2px solid red', padding:'10px'}}>
+        <h1>Delete Data</h1>
+        <form onSubmit={adi}>
+            <input type="text" name="id" placeholder='enter id' />
+            <button type='submit'>Delete Data</button>
+        </form>
     </div>
-)
+  )
 }
 
 export default Delete
