@@ -1,5 +1,6 @@
 const express = require('express')
 const cors = require('cors')
+const axios = require('axios')
 const database=require('./database');
 const student=require('./studentmodel');
 const fs= require('fs/promises')
@@ -35,37 +36,32 @@ app.post('/users',async(req,res)=>{
     }
     
 })
-app.put('/users/:id/',(req,res) => {
-    const uid=req.params.id;
-    const {name,age}=req.body;
-    const userIndex=users.findIndex(user=>user.id==uid);
-    if(!name || !age) {
-        res.status(400).json({message: 'name and age are required'});
-        return;
+app.put('/users/:id/',async(req,res) => {
+
+    const uid = req.params.id;
+    const {name,age} = req.body;
+    const data = await student.findOne({id:uid});
+
+    if(data == null)
+    {
+        res.json({message:"Update is not possible"});
     }
-    if(userIndex==-1){
-        console.log(userIndex)
-        res.status(404).json({message: 'user not found'});
-    }
-    else{
-        users[userIndex].name=name;
-        users[userIndex].age=age;
-        writedata();
-        res.status(200).json({message: 'user updated successfully',data: users[userIndex]});
-    }  
+    await data.updateOne({name:name,age:age});
+    res.json({message:"Updation is successfull!!!!"});
 })
 
-app.delete('/users/:id',(req,res) => {
-    const uid=req.params.id;
-    const userIndex=users.findIndex(user=>user.id==uid);
-    if(userIndex==-1){
-        res.status(404).json({message: 'user not found'});
+app.delete('/users/:id', async(req,res) => {
+    const uid = req.params.id;
+    const data = await student.findOne({id:uid});
+    if(data == null)
+    {
+        res.json({message:"ID is not found"});
     }
-    else{
-        users.splice(userIndex,1);
-        writedata();
-        res.status(200).json({message: 'user deleted successfully',data: users[userIndex]});
-    }  
+    console.log(data);
+    await data.deleteOne();
+    res.json({message:"Data delete successfully"});
+    
+
 })
 app.listen(9000,()=>{
     console.log('Server is running on port 9000')

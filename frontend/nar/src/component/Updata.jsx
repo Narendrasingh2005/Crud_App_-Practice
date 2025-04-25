@@ -1,5 +1,5 @@
-import React from 'react'
 import axios from 'axios';
+import React from 'react';
 
 
 function Update() {
@@ -10,7 +10,7 @@ function Update() {
         const age = e.target.age.value;
 
         const data = {name,age}
-        await axios.put(`http://localhost:3000/users/${id}`,data)
+        await axios.put(`http://localhost:9000/users/${id}`,data)
         alert("DATA UPDATE")
     }
   return (
